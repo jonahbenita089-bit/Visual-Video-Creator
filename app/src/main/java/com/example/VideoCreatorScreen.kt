@@ -275,7 +275,8 @@ fun VideoCreatorScreen(
                                 onDuplicateScene = { idx -> viewModel.duplicateScene(idx) },
                                 onDeleteScene = { idx -> viewModel.deleteScene(idx) },
                                 onBatchGenerateScenes = { count, baseTitle, dur -> viewModel.batchGenerateScenes(count, baseTitle, dur) },
-                                onUpdatePalette = { pal -> viewModel.updatePalette(pal) }
+                                onUpdatePalette = { pal -> viewModel.updatePalette(pal) },
+                                onApplyVideoGenre = { genre -> viewModel.applyVideoGenre(genre) }
                             )
                         }
                     }

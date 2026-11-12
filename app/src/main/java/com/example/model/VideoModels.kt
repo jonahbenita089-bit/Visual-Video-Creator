@@ -6,7 +6,9 @@ enum class TemplateCategory(val title: String) {
     PRESENTATIONS("Presentations"),
     GREETINGS("Personal Greetings"),
     MARKETING("Marketing"),
-    TECH("Tech & Product")
+    TECH("Tech & Product"),
+    CINEMATIC("Cinematic & Film"),
+    ENTERTAINMENT("Music & Creative")
 }
 
 enum class VideoAspectRatio(val ratio: Float, val label: String) {
@@ -33,7 +35,31 @@ enum class GraphicStyle(val displayName: String, val description: String) {
     METRICS_CHART("Metrics & Growth Chart", "Animated bar graphs and upward trajectory vectors"),
     ABSTRACT_SPHERE("Abstract Orbit Sphere", "Layered geometric sphere with rotating rings"),
     NEON_HEXAGONS("Neon Hex Pattern", "Honeycomb matrix with ambient pulse lighting"),
-    DANCING_DOG("Dancing Dog Character", "Animated dancing dog with bobbing ears, tapping paws, and wagging tail")
+    DANCING_DOG("Dancing Dog Character", "Animated dancing dog with bobbing ears, tapping paws, and wagging tail"),
+    RETRO_SYNTHWAVE("Retro 80s Synthwave", "Neon grid highway with segmented glowing horizon sun"),
+    CINEMATIC_LETTERBOX("Cinematic Flare", "Anamorphic lens flares, vignette aura, and floating dust motes"),
+    CARTOON_SPEED_LINES("Cartoon Manga Lines", "High-velocity radial speed bursts and comic impact rays"),
+    LUXURY_MINIMAL("Luxury Geometric", "Delicate gold wireframe facets and soft radial luminescence"),
+    CYBER_HUD_TARGET("Sci-Fi HUD Reticle", "Holographic targeting brackets, rotation dials, and telemetry nodes"),
+    AUDIO_SPECTRUM("EDM Audio Spectrum", "Pulsing frequency equalizer columns with central audio ripple"),
+    NATURE_HORIZON("Nature Horizon", "Layered mountain terrain silhouettes and solar atmospheric glow")
+}
+
+enum class VideoGenre(
+    val displayName: String,
+    val description: String,
+    val defaultGraphicStyle: GraphicStyle,
+    val paletteId: String
+) {
+    CINEMATIC("Cinematic Movie", "Moody widescreen atmosphere with anamorphic lens flares", GraphicStyle.CINEMATIC_LETTERBOX, "monochrome_minimal"),
+    RETRO_80S("Retro Synthwave", "80s cyberpunk neon grid with glowing horizon sun", GraphicStyle.RETRO_SYNTHWAVE, "cyber_neon"),
+    ANIME_COMIC("Cartoon & Manga", "High energy radial action speed lines and comic bursts", GraphicStyle.CARTOON_SPEED_LINES, "sunset_gold"),
+    SCI_FI_CYBERPUNK("Sci-Fi HUD & Tech", "Futuristic holographic target reticles and telemetry", GraphicStyle.CYBER_HUD_TARGET, "cyber_neon"),
+    LUXURY_EDITORIAL("Luxury & Fashion", "Elegant gold wireframe diamonds and refined shimmer", GraphicStyle.LUXURY_MINIMAL, "sunset_gold"),
+    AUDIO_EDM("Music Visualizer", "Rhythmic sound spectrum equalizer and beat halos", GraphicStyle.AUDIO_SPECTRUM, "cyber_neon"),
+    NATURE_ORGANIC("Nature & Travel", "Atmospheric horizon silhouettes and organic auroras", GraphicStyle.NATURE_HORIZON, "emerald_nature"),
+    CORPORATE_DATA("Business & Deck", "Professional growth charts and architecture grids", GraphicStyle.METRICS_CHART, "corporate_slate"),
+    VIRAL_PARTY("Celebration & Fun", "Sparkle bursts, festive confetti, and dancing characters", GraphicStyle.DANCING_DOG, "celebration_warm")
 }
 
 data class ColorPalettePreset(
@@ -89,4 +115,3 @@ fun formatVideoDuration(totalSeconds: Float): String {
         String.format("%.1fs", totalSeconds)
     }
 }
-

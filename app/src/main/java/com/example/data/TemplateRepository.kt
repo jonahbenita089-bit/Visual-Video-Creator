@@ -130,6 +130,321 @@ object TemplateRepository {
                 )
             )
         ),
+        // RETRO 80S SYNTHWAVE STYLE
+        VideoTemplate(
+            id = "style_retro_synthwave",
+            title = "Outrun Synthwave Odyssey",
+            description = "Iconic 1980s retro-futuristic aesthetic with neon horizon grid and chrome typography.",
+            category = TemplateCategory.CINEMATIC,
+            defaultAspectRatio = VideoAspectRatio.LANDSCAPE_16_9,
+            palette = palettes[0], // Cyber Neon
+            suggestedMusicMood = "80s Analog Synthwave & Arpeggios",
+            scenes = listOf(
+                VideoScene(
+                    id = "srs_s1",
+                    title = "Cruise Into The Midnight",
+                    subtitle = "Neon lights burning across the infinite retro highway.",
+                    badge = "Synthwave 1984",
+                    caption = "Turn on the tape deck and drive",
+                    durationSeconds = 4.0f,
+                    animation = AnimationStyle.PAN_SIDEWAYS,
+                    graphicStyle = GraphicStyle.RETRO_SYNTHWAVE,
+                    placeholderGraphicDesc = "Segmented sunset over perspective neon grid highway"
+                ),
+                VideoScene(
+                    id = "srs_s2",
+                    title = "Electric Velocity",
+                    subtitle = "Analog synthesizers driving pure kinetic acceleration.",
+                    badge = "Maximum Turbo",
+                    caption = "Experience high-fidelity 80s nostalgia",
+                    durationSeconds = 4.5f,
+                    animation = AnimationStyle.PULSE_SCALE,
+                    graphicStyle = GraphicStyle.RETRO_SYNTHWAVE,
+                    placeholderGraphicDesc = "Accelerating neon grid with glowing horizon glow"
+                ),
+                VideoScene(
+                    id = "srs_s3",
+                    title = "Endless Horizon Awaits",
+                    subtitle = "Where digital dreams meet analog memories.",
+                    badge = "Level Clear",
+                    caption = "Stay tuned for the full soundtrack",
+                    durationSeconds = 3.8f,
+                    animation = AnimationStyle.ZOOM_KEN_BURNS,
+                    graphicStyle = GraphicStyle.RETRO_SYNTHWAVE,
+                    placeholderGraphicDesc = "Pulsing retro sun setting into digital horizon"
+                )
+            )
+        ),
+        // CINEMATIC FILM TRAILER STYLE
+        VideoTemplate(
+            id = "style_cinematic_trailer",
+            title = "Cinematic Movie Teaser",
+            description = "Dramatic widescreen blockbuster trailer with anamorphic lens flares and moody typography.",
+            category = TemplateCategory.CINEMATIC,
+            defaultAspectRatio = VideoAspectRatio.LANDSCAPE_16_9,
+            palette = palettes[5], // Monochrome Minimal
+            suggestedMusicMood = "Orchestral Brass & Sub-bass Braams",
+            scenes = listOf(
+                VideoScene(
+                    id = "sct_s1",
+                    title = "In A World Divided",
+                    subtitle = "One choice will echo across generations.",
+                    badge = "Official Teaser",
+                    caption = "Coming to screens worldwide this summer",
+                    durationSeconds = 4.5f,
+                    animation = AnimationStyle.SLIDE_UP,
+                    graphicStyle = GraphicStyle.CINEMATIC_LETTERBOX,
+                    placeholderGraphicDesc = "Horizontal anamorphic lens flare with subtle vignette aura"
+                ),
+                VideoScene(
+                    id = "sct_s2",
+                    title = "Everything Must Change",
+                    subtitle = "When the shadows fall, destiny demands a stand.",
+                    badge = "Critical Acclaim",
+                    caption = "From visionary director and creators",
+                    durationSeconds = 5.0f,
+                    animation = AnimationStyle.ZOOM_KEN_BURNS,
+                    graphicStyle = GraphicStyle.CINEMATIC_LETTERBOX,
+                    placeholderGraphicDesc = "Luminous central lens star with floating cinematic particles"
+                ),
+                VideoScene(
+                    id = "sct_s3",
+                    title = "The Odyssey Begins",
+                    subtitle = "Tickets and reserve premiere passes open now.",
+                    badge = "In Theatres & IMAX",
+                    caption = "Experience in full theatrical sound",
+                    durationSeconds = 4.0f,
+                    animation = AnimationStyle.KINETIC_BOUNCE,
+                    graphicStyle = GraphicStyle.CINEMATIC_LETTERBOX,
+                    placeholderGraphicDesc = "Cinematic title flare beam locking onto release date"
+                )
+            )
+        ),
+        // CARTOON & ANIME SPEED BURST STYLE
+        VideoTemplate(
+            id = "style_anime_speedburst",
+            title = "Manga Action Speedburst",
+            description = "High-octane comic action style with dynamic radial speed lines and punchy impact typography.",
+            category = TemplateCategory.ENTERTAINMENT,
+            defaultAspectRatio = VideoAspectRatio.PORTRAIT_9_16,
+            palette = palettes[1], // Sunset Glow
+            suggestedMusicMood = "Fast Japanese Rock & Heavy Drums",
+            scenes = listOf(
+                VideoScene(
+                    id = "sas_s1",
+                    title = "Power Level Rising",
+                    subtitle = "Focus all your energy into a single decisive strike.",
+                    badge = "Episode One",
+                    caption = "Unleash your true potential",
+                    durationSeconds = 3.2f,
+                    animation = AnimationStyle.KINETIC_BOUNCE,
+                    graphicStyle = GraphicStyle.CARTOON_SPEED_LINES,
+                    placeholderGraphicDesc = "Dynamic manga radial speed lines bursting outward"
+                ),
+                VideoScene(
+                    id = "sas_s2",
+                    title = "Maximum Impact",
+                    subtitle = "Speed beyond light. Precision without hesitation.",
+                    badge = "Limit Breaker",
+                    caption = "Can anyone keep up with this pace",
+                    durationSeconds = 3.5f,
+                    animation = AnimationStyle.GLITCH_SHIFT,
+                    graphicStyle = GraphicStyle.CARTOON_SPEED_LINES,
+                    placeholderGraphicDesc = "Accelerating anime action rays with central comic ring"
+                ),
+                VideoScene(
+                    id = "sas_s3",
+                    title = "Victory Achieved",
+                    subtitle = "The battle is won, but the adventure continues.",
+                    badge = "To Be Continued",
+                    caption = "Next chapter arrives next week",
+                    durationSeconds = 3.0f,
+                    animation = AnimationStyle.PULSE_SCALE,
+                    graphicStyle = GraphicStyle.CARTOON_SPEED_LINES,
+                    placeholderGraphicDesc = "Dramatic action impact circle centering conclusion banner"
+                )
+            )
+        ),
+        // SCI-FI CYBERPUNK HUD STYLE
+        VideoTemplate(
+            id = "style_cyber_hud",
+            title = "Cyberpunk HUD Telemetry",
+            description = "Futuristic tactical user interface with holographic target reticles and diagnostics.",
+            category = TemplateCategory.TECH,
+            defaultAspectRatio = VideoAspectRatio.LANDSCAPE_16_9,
+            palette = palettes[0], // Cyber Neon
+            suggestedMusicMood = "Industrial Dark Cyberpunk Beats",
+            scenes = listOf(
+                VideoScene(
+                    id = "sch_s1",
+                    title = "Target Acquisition Locked",
+                    subtitle = "Satellite link established. Calibration at 99.8% precision.",
+                    badge = "System Boot",
+                    caption = "Telemetry coordinates online",
+                    durationSeconds = 4.0f,
+                    animation = AnimationStyle.GLITCH_SHIFT,
+                    graphicStyle = GraphicStyle.CYBER_HUD_TARGET,
+                    placeholderGraphicDesc = "Holographic target reticle with rotating coordinate dial"
+                ),
+                VideoScene(
+                    id = "sch_s2",
+                    title = "Neural Link Synchronized",
+                    subtitle = "Streaming multi-spectral reconnaissance feed directly to cockpit.",
+                    badge = "Diagnostics Clear",
+                    caption = "All defensive subsystems active",
+                    durationSeconds = 4.2f,
+                    animation = AnimationStyle.PAN_SIDEWAYS,
+                    graphicStyle = GraphicStyle.CYBER_HUD_TARGET,
+                    placeholderGraphicDesc = "Multi-ring tactical HUD with corner telemetry brackets"
+                ),
+                VideoScene(
+                    id = "sch_s3",
+                    title = "Mission Directive Execute",
+                    subtitle = "Operation sequence commenced. Awaiting final override.",
+                    badge = "Confirmed",
+                    caption = "Secure military grade protocol",
+                    durationSeconds = 3.8f,
+                    animation = AnimationStyle.PULSE_SCALE,
+                    graphicStyle = GraphicStyle.CYBER_HUD_TARGET,
+                    placeholderGraphicDesc = "Central target crosshair with glowing acquisition lock"
+                )
+            )
+        ),
+        // LUXURY EDITORIAL STYLE
+        VideoTemplate(
+            id = "style_luxury_editorial",
+            title = "Luxury Editorial Spotlight",
+            description = "Sophisticated high-fashion aesthetic featuring gold geometric diamonds and refined typography.",
+            category = TemplateCategory.MARKETING,
+            defaultAspectRatio = VideoAspectRatio.PORTRAIT_9_16,
+            palette = palettes[1], // Sunset Glow
+            suggestedMusicMood = "Soft Classical Piano & Warm Cello",
+            scenes = listOf(
+                VideoScene(
+                    id = "sle_s1",
+                    title = "Timeless Elegance",
+                    subtitle = "Crafted for connoisseurs of architectural beauty.",
+                    badge = "The Haute Collection",
+                    caption = "Discover exquisite bespoke creations",
+                    durationSeconds = 4.2f,
+                    animation = AnimationStyle.ZOOM_KEN_BURNS,
+                    graphicStyle = GraphicStyle.LUXURY_MINIMAL,
+                    placeholderGraphicDesc = "Rotating gold wireframe diamond with delicate orbital rings"
+                ),
+                VideoScene(
+                    id = "sle_s2",
+                    title = "Pure Distinction",
+                    subtitle = "Rare materials sculpted into breathtaking silhouettes.",
+                    badge = "Private Showcase",
+                    caption = "By private atelier invitation only",
+                    durationSeconds = 4.5f,
+                    animation = AnimationStyle.SLIDE_UP,
+                    graphicStyle = GraphicStyle.LUXURY_MINIMAL,
+                    placeholderGraphicDesc = "Dual concentric gold facets shimmering with subtle light"
+                ),
+                VideoScene(
+                    id = "sle_s3",
+                    title = "Reserve Your Experience",
+                    subtitle = "Private showings in Paris, Milan, and New York.",
+                    badge = "Atelier Concierge",
+                    caption = "Visit luxury.atelier.com/reserve",
+                    durationSeconds = 3.8f,
+                    animation = AnimationStyle.PULSE_SCALE,
+                    graphicStyle = GraphicStyle.LUXURY_MINIMAL,
+                    placeholderGraphicDesc = "Centering golden diamond emblem framing signature invitation"
+                )
+            )
+        ),
+        // EDM MUSIC VISUALIZER STYLE
+        VideoTemplate(
+            id = "style_edm_visualizer",
+            title = "EDM Soundwave Visualizer",
+            description = "Rhythmic club video with animated audio equalizer columns and bass drop halos.",
+            category = TemplateCategory.ENTERTAINMENT,
+            defaultAspectRatio = VideoAspectRatio.SQUARE_1_1,
+            palette = palettes[0], // Cyber Neon
+            suggestedMusicMood = "High Energy EDM Festival Drop",
+            scenes = listOf(
+                VideoScene(
+                    id = "sev_s1",
+                    title = "Drop The Bass",
+                    subtitle = "Feel the sub-frequency pulse shaking the dance arena.",
+                    badge = "Mainstage Live",
+                    caption = "Stream now on Apple Music & Beatport",
+                    durationSeconds = 3.5f,
+                    animation = AnimationStyle.PULSE_SCALE,
+                    graphicStyle = GraphicStyle.AUDIO_SPECTRUM,
+                    placeholderGraphicDesc = "Pulsing audio equalizer columns dancing with bass frequencies"
+                ),
+                VideoScene(
+                    id = "sev_s2",
+                    title = "Peak Energy Resonance",
+                    subtitle = "140 BPM pure festival euphoria lighting up the night.",
+                    badge = "Crowd Surge",
+                    caption = "Turn your headphones all the way up",
+                    durationSeconds = 3.8f,
+                    animation = AnimationStyle.GLITCH_SHIFT,
+                    graphicStyle = GraphicStyle.AUDIO_SPECTRUM,
+                    placeholderGraphicDesc = "Expanding sound halo reacting to harmonic peaks"
+                ),
+                VideoScene(
+                    id = "sev_s3",
+                    title = "Follow The Artist",
+                    subtitle = "World tour tickets on sale this Friday at 10 AM.",
+                    badge = "Tour 2027",
+                    caption = "Check tour dates in description",
+                    durationSeconds = 3.2f,
+                    animation = AnimationStyle.KINETIC_BOUNCE,
+                    graphicStyle = GraphicStyle.AUDIO_SPECTRUM,
+                    placeholderGraphicDesc = "Center equalizer crest framing artist social handles"
+                )
+            )
+        ),
+        // NATURE HORIZON TRAVEL STYLE
+        VideoTemplate(
+            id = "style_nature_travel",
+            title = "Mountain Travel Horizon",
+            description = "Tranquil outdoor journey template with mountain ridge silhouettes and solar glows.",
+            category = TemplateCategory.CINEMATIC,
+            defaultAspectRatio = VideoAspectRatio.LANDSCAPE_16_9,
+            palette = palettes[3], // Emerald Nature
+            suggestedMusicMood = "Peaceful Acoustic & Ambient Winds",
+            scenes = listOf(
+                VideoScene(
+                    id = "snt_s1",
+                    title = "Beyond The Alpine Peaks",
+                    subtitle = "Where wilderness whispers and the dawn breaks silent.",
+                    badge = "Expedition Journal",
+                    caption = "Documentary series shot on location",
+                    durationSeconds = 4.2f,
+                    animation = AnimationStyle.PAN_SIDEWAYS,
+                    graphicStyle = GraphicStyle.NATURE_HORIZON,
+                    placeholderGraphicDesc = "Layered mountain silhouettes against rising golden sun"
+                ),
+                VideoScene(
+                    id = "snt_s2",
+                    title = "Breathe The Wild Air",
+                    subtitle = "Step off the marked trail and discover untouched terrain.",
+                    badge = "High Altitude",
+                    caption = "Follow the full photography expedition",
+                    durationSeconds = 4.5f,
+                    animation = AnimationStyle.ZOOM_KEN_BURNS,
+                    graphicStyle = GraphicStyle.NATURE_HORIZON,
+                    placeholderGraphicDesc = "Atmospheric solar glow illuminating alpine ridge contours"
+                ),
+                VideoScene(
+                    id = "snt_s3",
+                    title = "Leave Only Footprints",
+                    subtitle = "Preserving the beauty of national wilderness sanctuaries.",
+                    badge = "Conservation",
+                    caption = "Support wilderness conservation funds",
+                    durationSeconds = 3.8f,
+                    animation = AnimationStyle.SLIDE_UP,
+                    graphicStyle = GraphicStyle.NATURE_HORIZON,
+                    placeholderGraphicDesc = "Sunset mountain horizon with signature conservation pledge"
+                )
+            )
+        ),
         // SOCIAL MEDIA TEMPLATES
         VideoTemplate(
             id = "social_product_launch",

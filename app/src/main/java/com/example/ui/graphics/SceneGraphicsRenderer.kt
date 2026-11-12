@@ -64,6 +64,27 @@ fun SceneGraphicCanvas(
             GraphicStyle.DANCING_DOG -> {
                 drawDancingDog(cx, cy, w, h, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
             }
+            GraphicStyle.RETRO_SYNTHWAVE -> {
+                drawRetroSynthwave(w, h, cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
+            GraphicStyle.CINEMATIC_LETTERBOX -> {
+                drawCinematicFlare(w, h, cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
+            GraphicStyle.CARTOON_SPEED_LINES -> {
+                drawCartoonSpeedLines(w, h, cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
+            GraphicStyle.LUXURY_MINIMAL -> {
+                drawLuxuryMinimal(cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
+            GraphicStyle.CYBER_HUD_TARGET -> {
+                drawCyberHudTarget(cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
+            GraphicStyle.AUDIO_SPECTRUM -> {
+                drawAudioSpectrum(w, h, cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
+            GraphicStyle.NATURE_HORIZON -> {
+                drawNatureHorizon(w, h, cx, cy, primaryColor, secondaryColor, accentColor, sceneProgress, elapsedMs)
+            }
         }
     }
 }
@@ -661,4 +682,367 @@ private fun DrawScope.drawDancingDog(
         cap = StrokeCap.Round
     )
 }
+
+private fun DrawScope.drawRetroSynthwave(
+    w: Float,
+    h: Float,
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val horizonY = h * 0.58f
+
+    // 1. Synthwave Horizon Sun with horizontal segments
+    val sunRadius = w * 0.22f
+    val sunCenter = Offset(cx, horizonY - 15f)
+    drawCircle(
+        brush = Brush.verticalGradient(
+            colors = listOf(accent, Color(0xFFFFD166)),
+            startY = sunCenter.y - sunRadius,
+            endY = sunCenter.y + sunRadius
+        ),
+        radius = sunRadius,
+        center = sunCenter
+    )
+    // Slices in sun
+    for (i in 1..5) {
+        val sliceY = sunCenter.y + (i * 12f)
+        val sliceH = 2f + i * 1.5f
+        drawRect(
+            color = Color(0xFF161F38),
+            topLeft = Offset(sunCenter.x - sunRadius, sliceY),
+            size = Size(sunRadius * 2f, sliceH)
+        )
+    }
+
+    // 2. Perspective Ground Grid
+    val vanishX = cx
+    val vanishY = horizonY
+    val lineCount = 10
+    for (i in -lineCount..lineCount) {
+        val bottomX = cx + (i * w * 0.12f)
+        drawLine(
+            color = primary.copy(alpha = 0.5f),
+            start = Offset(vanishX, vanishY),
+            end = Offset(bottomX, h),
+            strokeWidth = 1.8f
+        )
+    }
+    // Horizontal moving grid lines
+    val gridStep = 45f
+    val offset = (elapsedMs / 25f) % gridStep
+    var y = horizonY + 10f
+    var step = 8f
+    while (y <= h) {
+        val alpha = ((y - horizonY) / (h - horizonY)).coerceIn(0.1f, 0.7f)
+        drawLine(
+            color = secondary.copy(alpha = alpha),
+            start = Offset(0f, y),
+            end = Offset(w, y),
+            strokeWidth = 2f
+        )
+        step *= 1.35f
+        y += step + offset * 0.1f
+    }
+}
+
+private fun DrawScope.drawCinematicFlare(
+    w: Float,
+    h: Float,
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val flarePulse = (sin(elapsedMs / 400f) + 1f) / 2f
+    val flareY = cy - 20f
+
+    // Horizontal anamorphic lens flare beam
+    drawLine(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color.Transparent, primary.copy(alpha = 0.8f), Color.White, primary.copy(alpha = 0.8f), Color.Transparent),
+            startX = 0f,
+            endX = w
+        ),
+        start = Offset(0f, flareY),
+        end = Offset(w, flareY),
+        strokeWidth = 3f + 3f * flarePulse
+    )
+
+    // Central flare halo
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color.White.copy(alpha = 0.9f), primary.copy(alpha = 0.4f), Color.Transparent),
+            center = Offset(cx, flareY),
+            radius = 60f + 25f * flarePulse
+        ),
+        radius = 60f + 25f * flarePulse,
+        center = Offset(cx, flareY)
+    )
+
+    // Floating cinematic dust motes
+    for (i in 0 until 8) {
+        val motePhase = (elapsedMs / 1000f + i * 1.5f) % 4f
+        val my = (h * (0.2f + (i * 0.08f))) + sin(motePhase + i) * 20f
+        val mx = (w * (0.15f + (i * 0.09f))) + cos(motePhase * 0.8f) * 15f
+        drawCircle(
+            color = Color.White.copy(alpha = 0.4f),
+            radius = 2.5f,
+            center = Offset(mx, my)
+        )
+    }
+}
+
+private fun DrawScope.drawCartoonSpeedLines(
+    w: Float,
+    h: Float,
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val lineCount = 20
+    val rot = (elapsedMs / 30f) % 360f
+
+    for (i in 0 until lineCount) {
+        val angle = ((rot + i * (360f / lineCount)) * (PI / 180f)).toFloat()
+        val jitter = (sin(elapsedMs / 50f + i) * 15f).toFloat()
+        val innerR = w * 0.22f + jitter
+        val outerR = w * 0.65f
+
+        val x1 = cx + innerR * cos(angle)
+        val y1 = cy + innerR * sin(angle)
+        val x2 = cx + outerR * cos(angle)
+        val y2 = cy + outerR * sin(angle)
+
+        val stroke = if (i % 3 == 0) 4.5f else 2f
+        val color = if (i % 2 == 0) primary else accent
+
+        drawLine(
+            color = color.copy(alpha = 0.6f),
+            start = Offset(x1, y1),
+            end = Offset(x2, y2),
+            strokeWidth = stroke,
+            cap = StrokeCap.Round
+        )
+    }
+
+    // Comic center impact ring
+    drawCircle(
+        color = accent.copy(alpha = 0.5f),
+        radius = w * 0.18f,
+        center = Offset(cx, cy),
+        style = Stroke(width = 3f)
+    )
+}
+
+private fun DrawScope.drawLuxuryMinimal(
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val rot = (elapsedMs / 80f) % 360f
+    val r = 90f
+
+    // Rotating gold diamond wireframe
+    for (layer in 0..1) {
+        val lRot = (rot * (if (layer == 0) 1f else -0.7f)) * (PI / 180f).toFloat()
+        val path = Path()
+        for (i in 0 until 4) {
+            val angle = lRot + (i * 90f) * (PI / 180f).toFloat()
+            val px = cx + (r * (1f - layer * 0.3f)) * cos(angle)
+            val py = cy + (r * (1f - layer * 0.3f)) * sin(angle)
+            if (i == 0) path.moveTo(px, py) else path.lineTo(px, py)
+        }
+        path.close()
+
+        drawPath(
+            path = path,
+            color = if (layer == 0) accent.copy(alpha = 0.7f) else primary.copy(alpha = 0.5f),
+            style = Stroke(width = 1.8f)
+        )
+    }
+
+    // Outer refined accent ring
+    drawCircle(
+        color = secondary.copy(alpha = 0.4f),
+        radius = r * 1.3f,
+        center = Offset(cx, cy),
+        style = Stroke(width = 1f)
+    )
+}
+
+private fun DrawScope.drawCyberHudTarget(
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val rot = (elapsedMs / 60f) % 360f
+    val targetR = 110f
+
+    // Segmented rotating outer dial
+    val segCount = 8
+    for (i in 0 until segCount) {
+        val startAngle = rot + i * (360f / segCount)
+        drawArc(
+            color = primary.copy(alpha = 0.7f),
+            startAngle = startAngle,
+            sweepAngle = 25f,
+            useCenter = false,
+            topLeft = Offset(cx - targetR, cy - targetR),
+            size = Size(targetR * 2f, targetR * 2f),
+            style = Stroke(width = 3f)
+        )
+    }
+
+    // Inner crosshair target
+    drawLine(
+        color = accent,
+        start = Offset(cx - 30f, cy),
+        end = Offset(cx + 30f, cy),
+        strokeWidth = 2f
+    )
+    drawLine(
+        color = accent,
+        start = Offset(cx, cy - 30f),
+        end = Offset(cx, cy + 30f),
+        strokeWidth = 2f
+    )
+    drawCircle(
+        color = accent.copy(alpha = 0.6f),
+        radius = 24f,
+        center = Offset(cx, cy),
+        style = Stroke(width = 1.5f)
+    )
+
+    // Corner HUD brackets
+    val bracketSize = 25f
+    val bw = targetR * 1.25f
+    val bh = targetR * 1.25f
+    // Top-Left
+    drawLine(color = secondary, start = Offset(cx - bw, cy - bh), end = Offset(cx - bw + bracketSize, cy - bh), strokeWidth = 2f)
+    drawLine(color = secondary, start = Offset(cx - bw, cy - bh), end = Offset(cx - bw, cy - bh + bracketSize), strokeWidth = 2f)
+    // Top-Right
+    drawLine(color = secondary, start = Offset(cx + bw, cy - bh), end = Offset(cx + bw - bracketSize, cy - bh), strokeWidth = 2f)
+    drawLine(color = secondary, start = Offset(cx + bw, cy - bh), end = Offset(cx + bw, cy - bh + bracketSize), strokeWidth = 2f)
+    // Bottom-Left
+    drawLine(color = secondary, start = Offset(cx - bw, cy + bh), end = Offset(cx - bw + bracketSize, cy + bh), strokeWidth = 2f)
+    drawLine(color = secondary, start = Offset(cx - bw, cy + bh), end = Offset(cx - bw, cy + bh - bracketSize), strokeWidth = 2f)
+    // Bottom-Right
+    drawLine(color = secondary, start = Offset(cx + bw, cy + bh), end = Offset(cx + bw - bracketSize, cy + bh), strokeWidth = 2f)
+    drawLine(color = secondary, start = Offset(cx + bw, cy + bh), end = Offset(cx + bw, cy + bh - bracketSize), strokeWidth = 2f)
+}
+
+private fun DrawScope.drawAudioSpectrum(
+    w: Float,
+    h: Float,
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val barCount = 14
+    val barWidth = 14f
+    val spacing = 6f
+    val totalW = (barWidth + spacing) * barCount
+    val startX = cx - totalW / 2f
+    val baseY = cy + 40f
+
+    for (i in 0 until barCount) {
+        val freq = sin(elapsedMs / 80f + i * 0.7f).toFloat().coerceIn(0.1f, 1f)
+        val barH = (60f + 70f * freq)
+        val bx = startX + i * (barWidth + spacing)
+
+        drawRoundRect(
+            brush = Brush.verticalGradient(
+                colors = listOf(accent, primary),
+                startY = baseY - barH,
+                endY = baseY
+            ),
+            topLeft = Offset(bx, baseY - barH),
+            size = Size(barWidth, barH),
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f)
+        )
+    }
+
+    // Central pulsing audio halo
+    val pulse = (sin(elapsedMs / 120f) + 1f) / 2f
+    drawCircle(
+        color = secondary.copy(alpha = 0.35f + 0.2f * pulse),
+        radius = 70f + 20f * pulse,
+        center = Offset(cx, cy - 25f),
+        style = Stroke(width = 2.5f)
+    )
+}
+
+private fun DrawScope.drawNatureHorizon(
+    w: Float,
+    h: Float,
+    cx: Float,
+    cy: Float,
+    primary: Color,
+    secondary: Color,
+    accent: Color,
+    progress: Float,
+    elapsedMs: Long
+) {
+    val horizonY = h * 0.62f
+
+    // Soft rising sun
+    val sunY = horizonY - 40f
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color(0xFFFFF4D6), Color(0xFFFFD166).copy(alpha = 0.7f), Color.Transparent),
+            center = Offset(cx, sunY),
+            radius = w * 0.28f
+        ),
+        radius = w * 0.28f,
+        center = Offset(cx, sunY)
+    )
+
+    // Mountain silhouettes Layer 1 (back)
+    val backPath = Path()
+    backPath.moveTo(0f, horizonY + 20f)
+    backPath.lineTo(w * 0.25f, horizonY - 45f)
+    backPath.lineTo(w * 0.55f, horizonY - 10f)
+    backPath.lineTo(w * 0.8f, horizonY - 60f)
+    backPath.lineTo(w, horizonY + 15f)
+    backPath.lineTo(w, h)
+    backPath.lineTo(0f, h)
+    backPath.close()
+    drawPath(path = backPath, color = secondary.copy(alpha = 0.45f))
+
+    // Mountain silhouettes Layer 2 (front)
+    val frontPath = Path()
+    frontPath.moveTo(0f, horizonY + 50f)
+    frontPath.lineTo(w * 0.35f, horizonY + 10f)
+    frontPath.lineTo(w * 0.7f, horizonY + 25f)
+    frontPath.lineTo(w, horizonY + 35f)
+    frontPath.lineTo(w, h)
+    frontPath.lineTo(0f, h)
+    frontPath.close()
+    drawPath(path = frontPath, color = primary.copy(alpha = 0.8f))
+}
+
 

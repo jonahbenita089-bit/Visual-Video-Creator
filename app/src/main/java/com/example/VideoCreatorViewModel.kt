@@ -279,6 +279,23 @@ class VideoCreatorViewModel : ViewModel() {
         updateTemplateInCatalog(modifiedTemplate)
     }
 
+    fun applyVideoGenre(genre: com.example.model.VideoGenre) {
+        val current = _activeTemplate.value
+        val newPalette = TemplateRepository.palettes.find { it.id == genre.paletteId } ?: current.palette
+        val updatedScenes = current.scenes.map { sc ->
+            sc.copy(
+                graphicStyle = genre.defaultGraphicStyle,
+                placeholderGraphicDesc = "${genre.displayName}: ${genre.defaultGraphicStyle.description}"
+            )
+        }
+        val modifiedTemplate = current.copy(
+            palette = newPalette,
+            scenes = updatedScenes
+        )
+        _activeTemplate.value = modifiedTemplate
+        updateTemplateInCatalog(modifiedTemplate)
+    }
+
     private fun updateTemplateInCatalog(template: VideoTemplate) {
         val list = _templates.value.toMutableList()
         val idx = list.indexOfFirst { it.id == template.id }

@@ -433,6 +433,119 @@ object RealVideoEncoder {
                 canvas.drawCircle(dogCenterX - 20f * dogScale, headCenterY - 12f * dogScale, 2.5f * dogScale, shapePaint)
                 canvas.drawCircle(dogCenterX + 16f * dogScale, headCenterY - 12f * dogScale, 2.5f * dogScale, shapePaint)
             }
+            GraphicStyle.RETRO_SYNTHWAVE -> {
+                val horizonY = height * 0.58f
+                val sunRadius = width * 0.22f
+                shapePaint.style = Paint.Style.FILL
+                shapePaint.color = accent
+                canvas.drawCircle(cx, horizonY - 15f, sunRadius, shapePaint)
+
+                // Sun horizontal slices
+                shapePaint.color = Color.rgb(22, 31, 56)
+                for (i in 1..5) {
+                    val sliceY = horizonY - 15f + (i * 12f)
+                    canvas.drawRect(cx - sunRadius, sliceY, cx + sunRadius, sliceY + (2f + i * 1.5f), shapePaint)
+                }
+
+                // Grid
+                shapePaint.style = Paint.Style.STROKE
+                shapePaint.strokeWidth = 2f
+                shapePaint.color = primary
+                for (i in -8..8) {
+                    canvas.drawLine(cx, horizonY, cx + (i * width * 0.12f), height, shapePaint)
+                }
+                var gy = horizonY + 10f
+                var gStep = 8f
+                while (gy <= height) {
+                    canvas.drawLine(0f, gy, width, gy, shapePaint)
+                    gStep *= 1.35f
+                    gy += gStep
+                }
+            }
+            GraphicStyle.CINEMATIC_LETTERBOX -> {
+                val flareY = cy - 20f
+                shapePaint.style = Paint.Style.STROKE
+                shapePaint.strokeWidth = 4f
+                shapePaint.color = primary
+                canvas.drawLine(0f, flareY, width, flareY, shapePaint)
+                shapePaint.style = Paint.Style.FILL
+                shapePaint.color = Color.WHITE
+                canvas.drawCircle(cx, flareY, 50f, shapePaint)
+            }
+            GraphicStyle.CARTOON_SPEED_LINES -> {
+                shapePaint.style = Paint.Style.STROKE
+                val lineCount = 20
+                for (i in 0 until lineCount) {
+                    val angle = ((globalFrame * 4f + i * (360f / lineCount)) * (PI / 180f)).toFloat()
+                    val r1 = width * 0.22f
+                    val r2 = width * 0.65f
+                    shapePaint.color = if (i % 2 == 0) primary else accent
+                    shapePaint.strokeWidth = if (i % 3 == 0) 5f else 2.5f
+                    canvas.drawLine(cx + r1 * cos(angle), cy + r1 * sin(angle), cx + r2 * cos(angle), cy + r2 * sin(angle), shapePaint)
+                }
+            }
+            GraphicStyle.LUXURY_MINIMAL -> {
+                shapePaint.style = Paint.Style.STROKE
+                shapePaint.strokeWidth = 2.5f
+                shapePaint.color = accent
+                val rot = (globalFrame * 1.5f) * (PI / 180f).toFloat()
+                val r = 90f
+                val p = Path()
+                for (i in 0 until 4) {
+                    val a = rot + (i * 90f) * (PI / 180f).toFloat()
+                    val px = cx + r * cos(a)
+                    val py = cy + r * sin(a)
+                    if (i == 0) p.moveTo(px, py) else p.lineTo(px, py)
+                }
+                p.close()
+                canvas.drawPath(p, shapePaint)
+                shapePaint.color = secondary
+                canvas.drawCircle(cx, cy, r * 1.3f, shapePaint)
+            }
+            GraphicStyle.CYBER_HUD_TARGET -> {
+                shapePaint.style = Paint.Style.STROKE
+                shapePaint.strokeWidth = 3f
+                shapePaint.color = primary
+                canvas.drawCircle(cx, cy, 100f, shapePaint)
+                shapePaint.color = accent
+                canvas.drawLine(cx - 30f, cy, cx + 30f, cy, shapePaint)
+                canvas.drawLine(cx, cy - 30f, cx, cy + 30f, shapePaint)
+                canvas.drawCircle(cx, cy, 25f, shapePaint)
+            }
+            GraphicStyle.AUDIO_SPECTRUM -> {
+                shapePaint.style = Paint.Style.FILL
+                val barCount = 14
+                val barW = 16f
+                val spacing = 6f
+                val totalW = (barW + spacing) * barCount
+                val startX = cx - totalW / 2f
+                val baseY = cy + 50f
+                for (i in 0 until barCount) {
+                    val freq = sin((globalFrame * 0.2f + i * 0.7f).toDouble()).toFloat().coerceIn(0.1f, 1f)
+                    val barH = 50f + 70f * freq
+                    val bx = startX + i * (barW + spacing)
+                    shapePaint.color = if (i % 2 == 0) primary else accent
+                    canvas.drawRect(bx, baseY - barH, bx + barW, baseY, shapePaint)
+                }
+            }
+            GraphicStyle.NATURE_HORIZON -> {
+                val horizonY = height * 0.62f
+                shapePaint.style = Paint.Style.FILL
+                shapePaint.color = Color.rgb(255, 230, 160)
+                canvas.drawCircle(cx, horizonY - 40f, width * 0.25f, shapePaint)
+                shapePaint.color = secondary
+                val p = Path().apply {
+                    moveTo(0f, horizonY + 20f)
+                    lineTo(width * 0.25f, horizonY - 45f)
+                    lineTo(width * 0.55f, horizonY - 10f)
+                    lineTo(width * 0.8f, horizonY - 60f)
+                    lineTo(width, horizonY + 15f)
+                    lineTo(width, height)
+                    lineTo(0f, height)
+                    close()
+                }
+                canvas.drawPath(p, shapePaint)
+            }
             else -> {
                 // Aurora bloom default
                 shapePaint.style = Paint.Style.FILL

@@ -65,6 +65,7 @@ import com.example.data.TemplateRepository
 import com.example.model.AnimationStyle
 import com.example.model.ColorPalettePreset
 import com.example.model.GraphicStyle
+import com.example.model.VideoGenre
 import com.example.model.VideoLimits
 import com.example.model.VideoScene
 import com.example.model.VideoTemplate
@@ -82,6 +83,7 @@ fun SceneEditorSheet(
     onDeleteScene: (Int) -> Unit,
     onBatchGenerateScenes: (count: Int, baseTitle: String, duration: Float) -> Unit,
     onUpdatePalette: (ColorPalettePreset) -> Unit,
+    onApplyVideoGenre: (VideoGenre) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val scenes = template.scenes
@@ -640,7 +642,73 @@ fun SceneEditorSheet(
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(14.dp))
+
+            // 1-Tap Video Style Transformation (Any Genre)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.AutoAwesome,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "Transform Video Style (Any Genre)",
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Apply cohesive aesthetic, graphics, and palette to all scenes in 1 tap:",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                VideoGenre.values().forEach { genre ->
+                    Surface(
+                        shape = RoundedCornerShape(10.dp),
+                        color = MaterialTheme.colorScheme.surface,
+                        border = androidx.compose.foundation.BorderStroke(
+                            1.dp,
+                            MaterialTheme.colorScheme.outlineVariant
+                        ),
+                        modifier = Modifier
+                            .clickable { onApplyVideoGenre(genre) }
+                            .testTag("genre_preset_${genre.name}")
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                        ) {
+                            Text(
+                                text = genre.displayName,
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = genre.description,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontSize = 10.sp,
+                                maxLines = 1
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
 
             // Palette Theme Switcher
             Row(verticalAlignment = Alignment.CenterVertically) {
